@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <title>{{title}}</title>
+    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='src/assets/img/favicon.ico') }}"/>
+    <link href="{{url_for('static', filename='layouts/vertical-light-menu/css/light/loader.css') }}" rel="stylesheet" type="text/css" />
+    <script src="{{url_for('static', filename='layouts/vertical-light-menu/loader.js') }}"></script>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+    <link href="{{url_for('static', filename='src/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+    
+    <link href="{{url_for('static', filename='layouts/vertical-light-menu/css/light/plugins.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{url_for('static', filename='src/assets/css/light/authentication/auth-boxed.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='src/assets/css/light/elements/alert.css') }}">
+    <!-- END GLOBAL MANDATORY STYLES -->
+    
+</head>
+<body class="form">
+
+    <!-- BEGIN LOADER -->
+    <div id="load_screen"> <div class="loader"> <div class="loader-content">
+        <div class="spinner-grow align-self-center"></div>
+    </div></div></div>
+    <!--  END LOADER -->
+
+    <div class="auth-container d-flex">
+
+        <div class="container mx-auto align-self-center">
+    
+            <div class="row">
+    
+                <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-8 col-12 d-flex flex-column align-self-center mx-auto">
+                    <div class="card mt-3 mb-3">
+                        <div class="card-body">
+    
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <div class="container mx-auto align-self-center">
+                                        {% with messages = get_flashed_messages(with_categories=true) %}
+                                            {% if messages %}
+                                                {% for category, message in messages %}
+                                                <div class="alert alert-light-{{ category }} alert-dismissible fade show" role="alert">
+                                                    {{ message }}
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close" data-bs-dismiss="alert"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                                                </div>
+                                                {% endfor %}
+                                            {% endif %}
+                                        {% endwith %}
+                                    </div>   
+                                    <h2>Register New User</h2>
+                                    <p>Please fill in all fields to create a new user!</p>
+                                    
+                                </div>
+                                <form action="/manage-users/add-new-user" method="POST" enctype="multipart/form-data" novalidate>
+                                    {{ form.hidden_tag() }}
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            {{ form.user_name.label }}
+                                            {% if form.user_name.errors %}
+                                                {{ form.user_name(class="form-control is-invalid") }}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.user_name.errors %}
+                                                        <span>{{ error }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            {% else %}
+                                                {{ form.user_name(class="form-control add-billing-address-input") }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            {{ form.user_pass.label }}
+                                            {% if form.user_pass.errors %}
+                                                {{ form.user_pass(class="form-control is-invalid") }}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.user_pass.errors %}
+                                                        <span>{{ error }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            {% else %}
+                                                {{ form.user_pass(class="form-control") }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            {{ form.confirm_password.label }}
+                                            {% if form.confirm_password.errors %}
+                                                {{ form.confirm_password(class="form-control is-invalid") }}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.confirm_password.errors %}
+                                                        <span>{{ error }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            {% else %}
+                                                {{ form.confirm_password(class="form-control") }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            {{ form.user_email.label }}
+                                            {% if form.user_email.errors %}
+                                                {{ form.user_email(class="form-control is-invalid") }}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.user_email.errors %}
+                                                        <span>{{ error }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            {% else %}
+                                                {{ form.user_email(class="form-control") }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            {{ form.user_fullname.label }}
+                                            {% if form.user_fullname.errors %}
+                                                {{ form.user_fullname(class="form-control is-invalid") }}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.user_fullname.errors %}
+                                                        <span>{{ error }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            {% else %}
+                                                {{ form.user_fullname(class="form-control") }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            {{ form.user_photo.label }}
+                                            {% if form.user_photo.errors %}
+                                                {{ form.user_photo(class="form-control is-invalid") }}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.user_photo.errors %}
+                                                        <span>{{ error }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            {% else %}
+                                                {{ form.user_photo(class="form-control file-upload-input") }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            {{ form.user_active.label }}
+                                            {% if form.user_active.errors %}
+                                                {{ form.user_active(class="form-control is-invalid") }}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.user_active.errors %}
+                                                        <span>{{ error }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            {% else %}
+                                                {{ form.user_active(class="form-control") }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            {{ form.user_group.label }}
+                                            {% if form.user_group.errors %}
+                                                {{ form.user_group(class="form-control is-invalid") }}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.user_group.errors %}
+                                                        <span>{{ error }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            {% else %}
+                                                {{ form.user_group(class="form-control") }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mb-4">
+                                            {{ form.submit(class="btn btn-secondary w-100") }}<br><br>
+                                            <a href="{{url_for('backend.backend_manage_users') }}" class="btn btn-danger w-100">BACK</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+
+    </div>
+    
+    <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
+    <script src="{{url_for('static', filename='src/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- END GLOBAL MANDATORY SCRIPTS -->
+
+</body>
+</html>
