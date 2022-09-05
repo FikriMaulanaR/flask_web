@@ -115,7 +115,7 @@
                                             {% endif %}
                                         </div>
                                     </div>
-                                    {% if users.user_group == '1' %}
+                                    {% if session['user_name'] == 'admin' %}
                                     <div class="col-12">
                                         <div class="mb-3">
                                             {{ form.user_active.label }}

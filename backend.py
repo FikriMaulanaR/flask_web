@@ -219,10 +219,12 @@ def backend_videografis():
 def backend_profil_user(id):
     if 'loggedin' in session:
         user_name = session['user_name']
+        cur.execute("SELECT * FROM tbl_user WHERE user_name = %s;", (user_name,))
+        user = cur.fetchone()
         cur.execute("SELECT * FROM tbl_user WHERE user_id = %s;", (id,))
         users = cur.fetchall()
         print(users[0])
-        return render_template('profil_user.html', user_name=user_name, users=users[0], menu='Users', title='Profil')
+        return render_template('profil_user.html', user_name=user_name, user=user,users=users[0], menu='Users', title='Profil')
 
 @bp_backend.route('/detail-post/<id>')
 def backend_detail_post(id):
@@ -268,46 +270,40 @@ def backend_update_user(id):
                     usr_img_filename = secure_filename(user_photo.filename)
                     user_photo_name = usr_img_filename
                     saver = form.user_photo.data
-                    user_photo = user_photo_name
+                    user_photo2 = user_photo_name
                     print(user_photo)
-                    try:
-                        cur.execute("""
-                            UPDATE tbl_user 
-                            SET user_name = %s, 
-                                user_email = %s, 
-                                user_update = now(), 
-                                user_fullname = %s, 
-                                user_photo = %s, 
-                                user_active = %s, 
-                                user_group = %s 
-                            WHERE user_id = %s;
-                            """, (form.user_name.data, form.user_email.data, form.user_fullname.data, user_photo_name, form.user_active.data, form.user_group.data, id))
-                        saver.save(os.path.join(app.config['UPLOAD_FOLDER'], user_photo_name))
-                        flash('User Updated Successfully!', 'success')
-                        conn.commit()
-                        return redirect(url_for('backend.backend_profil_user'))
-                    except:
-                        flash('Error! There was an error admin foto!', 'warning')
+
+                    cur.execute("""
+                        UPDATE tbl_user 
+                        SET user_name = %s, 
+                            user_email = %s, 
+                            user_update = now(), 
+                            user_fullname = %s, 
+                            user_photo = %s, 
+                            user_active = %s, 
+                            user_group = %s 
+                        WHERE user_id = %s;
+                        """, (form.user_name.data, form.user_email.data, form.user_fullname.data, user_photo2, form.user_active.data, form.user_group.data, id))
+                    saver.save(os.path.join(app.config['UPLOAD_FOLDER'], user_photo_name))
+                    flash('User Updated Successfully!', 'success')
+                    conn.commit()
+                    return redirect(url_for('index'))
                 else:
-                    try:
-                        cur.execute("""
-                            UPDATE tbl_user 
-                            SET user_name = %s, 
-                                user_email = %s,                              
-                                user_fullname = %s,
-                                user_active = %s,
-                                user_update = now(), 
-                                user_group = %s 
-                            WHERE user_id = %s;
-                            """, (form.user_name.data, form.user_email.data, form.user_fullname.data, form.user_active.data, form.user_group.data, id))
-                        flash('User Updated Successfully!!', 'success')
-                        conn.commit()
-                        return redirect(url_for('backend.backend_profil_user'))
-                    except:
-                        flash('Errors! There was an error admin!', 'warning')
+                    cur.execute("""
+                        UPDATE tbl_user 
+                        SET user_name = %s, 
+                            user_email = %s,                              
+                            user_fullname = %s,
+                            user_active = %s,
+                            user_update = now(), 
+                            user_group = %s 
+                        WHERE user_id = %s;
+                        """, (form.user_name.data, form.user_email.data, form.user_fullname.data, form.user_active.data, form.user_group.data, id))
+                    flash('User Updated Successfully!!', 'success')
+                    conn.commit()
+                    return redirect(url_for('index'))
             else:
                 return render_template('update_user.html', form=form, users=users[0], menu='Users', menu1='ManageUsers', title='Update User')
-            return render_template('update_user.html', form=form, users=users[0], menu='Users', menu1='ManageUsers', title='Update User')
         else:
             if request.method == 'POST' and form.validate_on_submit():
                 if form.user_photo.data is not None:
@@ -317,40 +313,33 @@ def backend_update_user(id):
                     saver = form.user_photo.data
                     user_photo = user_photo_name
                     print(user_photo)
-                    try:
-                        cur.execute("""
-                            UPDATE tbl_user 
-                            SET user_name = %s, 
-                                user_email = %s, 
-                                user_update = now(), 
-                                user_fullname = %s, 
-                                user_photo = %s
-                            WHERE user_id = %s;
-                            """, (form.user_name.data, form.user_email.data, form.user_fullname.data, user_photo_name, id))
-                        saver.save(os.path.join(app.config['UPLOAD_FOLDER'], user_photo_name))
-                        flash('User Updated Successfully!', 'success')
-                        conn.commit()
-                        return redirect(url_for('backend.backend_profil_user'))
-                    except:
-                        flash('Error! There was an error user!', 'warning')
+                    cur.execute("""
+                        UPDATE tbl_user 
+                        SET user_name = %s, 
+                            user_email = %s, 
+                            user_update = now(), 
+                            user_fullname = %s, 
+                            user_photo = %s
+                        WHERE user_id = %s;
+                        """, (form.user_name.data, form.user_email.data, form.user_fullname.data, user_photo_name, id))
+                    saver.save(os.path.join(app.config['UPLOAD_FOLDER'], user_photo_name))
+                    flash('User Updated Successfully!', 'success')
+                    conn.commit()
+                    return redirect(url_for('index'))
                 else:
-                    try:
-                        cur.execute("""
-                            UPDATE tbl_user 
-                            SET user_name = %s, 
-                                user_email = %s,                              
-                                user_fullname = %s,                                
-                                user_update = now() 
-                            WHERE user_id = %s;
-                            """, (form.user_name.data, form.user_email.data, form.user_fullname.data, id))
-                        flash('User Updated Successfully!!', 'success')
-                        conn.commit()
-                        return redirect(url_for('backend.backend_profil_user'))
-                    except:
-                        flash('Errors! There was an error user!', 'warning')
+                    cur.execute("""
+                        UPDATE tbl_user 
+                        SET user_name = %s, 
+                            user_email = %s,                              
+                            user_fullname = %s,                                
+                            user_update = now() 
+                        WHERE user_id = %s;
+                        """, (form.user_name.data, form.user_email.data, form.user_fullname.data, id))
+                    flash('User Updated Successfully!!', 'success')
+                    conn.commit()
+                    return redirect(url_for('index'))
             else:
                 return render_template('update_user.html', form=form, users=users[0], menu='Users', menu1='ManageUsers', title='Update User')
-            return render_template('update_user.html', form=form, users=users[0], menu='Users', menu1='ManageUsers', title='Update User')
 
 @bp_backend.route('/manage-users/add-new-user', methods=['GET', 'POST'])
 def backend_add_user():
