@@ -1,4 +1,4 @@
-from ast import Eq
+from ast import Eq, Pass
 from crypt import methods
 import os
 from tokenize import String
@@ -287,7 +287,7 @@ def backend_update_user(id):
                     saver.save(os.path.join(app.config['UPLOAD_FOLDER'], user_photo_name))
                     flash('User Updated Successfully!', 'success')
                     conn.commit()
-                    return redirect(url_for('index'))
+                    return redirect(url_for('backend.backend_manage_users'))
                 else:
                     cur.execute("""
                         UPDATE tbl_user 
@@ -301,7 +301,7 @@ def backend_update_user(id):
                         """, (form.user_name.data, form.user_email.data, form.user_fullname.data, form.user_active.data, form.user_group.data, id))
                     flash('User Updated Successfully!!', 'success')
                     conn.commit()
-                    return redirect(url_for('index'))
+                    return redirect(url_for('backend.backend_manage_users'))
             else:
                 return render_template('update_user.html', form=form, users=users[0], menu='Users', menu1='ManageUsers', title='Update User')
         else:
@@ -313,31 +313,37 @@ def backend_update_user(id):
                     saver = form.user_photo.data
                     user_photo = user_photo_name
                     print(user_photo)
-                    cur.execute("""
-                        UPDATE tbl_user 
-                        SET user_name = %s, 
-                            user_email = %s, 
-                            user_update = now(), 
-                            user_fullname = %s, 
-                            user_photo = %s
-                        WHERE user_id = %s;
-                        """, (form.user_name.data, form.user_email.data, form.user_fullname.data, user_photo_name, id))
-                    saver.save(os.path.join(app.config['UPLOAD_FOLDER'], user_photo_name))
-                    flash('User Updated Successfully!', 'success')
-                    conn.commit()
-                    return redirect(url_for('index'))
+                    try:
+                        cur.execute("""
+                            UPDATE tbl_user 
+                            SET user_name = %s, 
+                                user_email = %s, 
+                                user_update = now(), 
+                                user_fullname = %s, 
+                                user_photo = %s
+                            WHERE user_id = %s;
+                            """, (form.user_name.data, form.user_email.data, form.user_fullname.data, user_photo_name, id))
+                        saver.save(os.path.join(app.config['UPLOAD_FOLDER'], user_photo_name))
+                        flash('User Updated Successfully!', 'success')
+                        conn.commit()
+                        return redirect(url_for('index'))
+                    except:
+                        flash("Error! There was an error!", "warning")
                 else:
-                    cur.execute("""
-                        UPDATE tbl_user 
-                        SET user_name = %s, 
-                            user_email = %s,                              
-                            user_fullname = %s,                                
-                            user_update = now() 
-                        WHERE user_id = %s;
-                        """, (form.user_name.data, form.user_email.data, form.user_fullname.data, id))
-                    flash('User Updated Successfully!!', 'success')
-                    conn.commit()
-                    return redirect(url_for('index'))
+                    try:
+                        cur.execute("""
+                            UPDATE tbl_user 
+                            SET user_name = %s, 
+                                user_email = %s,                              
+                                user_fullname = %s,                                
+                                user_update = now() 
+                            WHERE user_id = %s;
+                            """, (form.user_name.data, form.user_email.data, form.user_fullname.data, id))
+                        flash('User Updated Successfully!!', 'success')
+                        conn.commit()
+                        return redirect(url_for('index'))
+                    except:
+                        flash("Error! There was an error!", "warning")
             else:
                 return render_template('update_user.html', form=form, users=users[0], menu='Users', menu1='ManageUsers', title='Update User')
 
@@ -612,4 +618,7 @@ class updateUserForm(FlaskForm):
     submit = SubmitField('SUBMIT')
 
 class changeUserPassword(FlaskForm):
-    pass
+    user_name = StringField('Username', validators=[DataRequired(), Length(min=4, max=50)])
+    user_pass = PasswordField('New Password', validators=[DataRequired()])
+    confirm_pass = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('user_pass', message='Field must be equal to Confirm Password')])
+    submit = SubmitField('Change Password')

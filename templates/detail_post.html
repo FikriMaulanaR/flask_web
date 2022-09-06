@@ -400,7 +400,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td style="font-weight: bold;">Body</td>
-                                                    <td>                                                    
+                                                    <td style="text-align: justify;">                                                    
                                                         <p>{{ p.post_body|safe }}</p>
                                                     </td>
                                                 </tr>
@@ -408,7 +408,7 @@
                                                     <td style="font-weight: bold;">Image</td>
                                                     <td>
                                                         {% if p.post_image != None %}
-                                                        <a href="{{ url_for('static', filename='images/' + p.post_image) }}" target="_blank"><img src="{{ url_for('static', filename='images/' + p.post_image) }}" style="width: fit-content;" alt="Image"></a>
+                                                        <a href="{{ url_for('static', filename='images/' + p.post_image) }}" target="_blank"><img src="{{ url_for('static', filename='images/' + p.post_image) }}" style="width: 50%;" alt="Image"></a>
                                                         {% else %}
                                                         No Image
                                                         {% endif %}

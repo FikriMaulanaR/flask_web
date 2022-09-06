@@ -3112,7 +3112,7 @@ fieldset:disabled .btn {
   padding: 10px 21px 10px 21px;
   vertical-align: middle;
   letter-spacing: normal;
-  white-space: nowrap;
+  white-space: normal;
 }
 .table > :not(:first-child) {
   border: none;
