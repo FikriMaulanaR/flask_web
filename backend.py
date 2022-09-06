@@ -226,17 +226,17 @@ def backend_profil_user(id):
         print(users[0])
         return render_template('profil_user.html', user_name=user_name, user=user,users=users[0], menu='Users', title='Profil')
 
-@bp_backend.route('/detail-post/<id>')
-def backend_detail_post(id):
+@bp_backend.route('/detail-post/<slug>')
+def backend_detail_post(slug):
     if 'loggedin' in session:
-        cur.execute('SELECT * FROM tbl_post WHERE post_id = %s;', (id,))
+        cur.execute('SELECT * FROM tbl_post WHERE post_slug = %s;', (slug,))
         posts = cur.fetchall()
         print(posts)
         user_name = session['user_name']
         cur.execute("SELECT * FROM tbl_user WHERE user_name = %s;", (user_name,))
         users = cur.fetchall()
         print(users)
-        return render_template('detail_post.html', posts=posts, menu='Menu', users=users[0], title='Details Post')
+        return render_template('detail_post.html', posts=posts[0], menu='Menu', users=users[0], menu1='Post', title='Details Post')
 
 @bp_backend.route('/manage-users')
 def backend_manage_users():

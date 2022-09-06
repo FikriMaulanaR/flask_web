@@ -376,7 +376,7 @@
                                         {% for p in posts %}
                                         <tr>
                                             <td>{{ p.post_id }}</td>
-                                            <td><a class="link" href="{{url_for('backend.backend_detail_post', id=p.post_id) }}">{{p.post_title }}</a></td>
+                                            <td><a class="link" href="{{url_for('backend.backend_detail_post', slug=p.post_slug) }}">{{p.post_title }}</a></td>
                                             <!--<td>{{ p.post_slug }}</td> -->
                                             <td style="text-align: center;">{{ p.post_type }}</td>
                                             <td>{{ p.category_title }}</td>

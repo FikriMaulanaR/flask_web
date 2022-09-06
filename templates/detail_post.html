@@ -5,33 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
     <title>{{title}}</title>
-   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='src/assets/img/favicon.ico') }}"/>
-    <!-- ENABLE LOADERS -->
-    <link href="{{ url_for('static', filename='layouts/vertical-light-menu/css/light/loader.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ url_for('static', filename='layouts/vertical-light-menu/css/dark/loader.css') }}" rel="stylesheet" type="text/css" />
-    <script src="{{ url_for('static', filename='layouts/vertical-light-menu/loader.js') }}"></script>
-    <!-- /ENABLE LOADERS -->
+    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='src/assets/img/favicon.ico') }}"/>
+    <link href="{{url_for('static', filename='layouts/vertical-light-menu/css/light/loader.css') }}" rel="stylesheet" type="text/css" />
+    <script src="{{url_for('static', filename='layouts/vertical-light-menu/loader.js') }}"></script>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
-    <link href="{{ url_for('static', filename='src/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ url_for('static', filename='layouts/vertical-light-menu/css/light/plugins.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ url_for('static', filename='layouts/vertical-light-menu/css/dark/plugins.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{url_for('static', filename='src/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{url_for('static', filename='layouts/vertical-light-menu/css/light/plugins.css') }}" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
 
-    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='src/assets/css/light/elements/alert.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='src/assets/css/dark/elements/alert.css') }}">
-    <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
     <!--  BEGIN CUSTOM STYLE FILE  -->
-    <link href="../src/assets/css/light/components/list-group.css" rel="stylesheet" type="text/css">
-    <link href="../src/assets/css/light/users/user-profile.css" rel="stylesheet" type="text/css" />
-
-    <link href="../src/assets/css/dark/components/list-group.css" rel="stylesheet" type="text/css">
-    <link href="../src/assets/css/dark/users/user-profile.css" rel="stylesheet" type="text/css" />
-    <!--  END CUSTOM STYLE FILE  -->
-    <!--  BEGIN CUSTOM STYLE FILE  -->
-    <link href="{{url_for('static', filename='src/assets/css/light/scrollspyNav.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{url_for('static', filename='src/assets/css/dark/scrollspyNav.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{url_for('static', filename='src/assets/css/light/elements/custom-pagination.css') }}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='src/assets/css/light/apps/blog-post.css') }}"/>
+    <style type="text/css">
+    .featured-image {
+        background: lightblue url("{{ url_for('static', filename='images/' + posts.post_image)}}") no-repeat fixed center;
+    }
+    </style>
     <!--  END CUSTOM STYLE FILE  -->
 </head>
 <body class=" layout-boxed">
@@ -114,7 +104,7 @@
                     <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="avatar-container">
                             <div class="avatar avatar-sm avatar-indicators avatar-online">
-                                <img alt="avatar" src="../static/src/assets/img/anonymous.png" class="rounded-circle">
+                                <img alt="avatar" src="{{url_for('static', filename='src/assets/img/anonymous.png') }}" class="rounded-circle">
                             </div>
                         </div>
                     </a>
@@ -122,7 +112,7 @@
                     <div class="dropdown-menu position-absolute" aria-labelledby="userProfileDropdown">
                         <div class="user-profile-section">
                             <div class="media mx-auto">
-                                <img src="../static/src/assets/img/anonymous.png" class="img-fluid me-2" alt="avatar">
+                                <img src="{{url_for('static', filename='src/assets/img/anonymous.png') }}" class="img-fluid me-2" alt="avatar">
                                 <div class="media-body">
                                     <h5>Anonymous</h5>
                                     <p>Unknown</p>
@@ -159,7 +149,7 @@
                     <div class="nav-logo">
                         <div class="nav-item theme-logo">
                             <a href="{{ url_for('backend.index') }}">
-                                <img src="../static/src/assets/img/logo-bmkg.png" class="navbar-logo" alt="logo">
+                                <img src="{{url_for('static', filename='src/assets/img/logo-bmkg.png') }}" class="navbar-logo" alt="logo">
                             </a>
                         </div>
                         <div class="nav-item theme-text">
@@ -317,131 +307,104 @@
 
         <!--  BEGIN CONTENT AREA  -->
         <div id="content" class="main-content">
+
             <div class="layout-px-spacing">
 
                 <div class="middle-content container-xxl p-0">
-
+    
                     <!-- BREADCRUMB -->
                     <div class="page-meta">
                         <nav class="breadcrumb-style-one" aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#">{{menu}}</a></li>
+                                <li class="breadcrumb-item"><a href="#">{{menu1}}</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">{{title}}</li>
                             </ol>
                         </nav>
                     </div>
                     <!-- /BREADCRUMB -->
     
-                    <div class="row layout-spacing ">
+                    <div class="row layout-top-spacing">
     
-                        <!-- Content -->
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 layout-top-spacing">
+                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
 
-                            <div class="usr-tasks ">
-                                <div class="widget-content widget-content-area">
-                                    <h3 class="">Details</h3>
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                {% for p in posts %}
-                                                <tr>
-                                                    <th style="width: 1%;">ID</th>
-                                                    <th style="white-space: nowrap;">{{p.post_id}}</th>
-                                                </tr>
-                                                <!--<tr aria-hidden="true" class="mt-3 d-block table-row-hidden"></tr>-->
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td style="font-weight: bold;">Title</td>
-                                                    <td>                                                    
-                                                        <p>{{p.post_title}}</p>
-                                                    </td>
-                                                </tr>
 
-                                                <tr>
-                                                    <td style="font-weight: bold">Slug</td>
-                                                    <td>
-                                                        <p>{{p.post_slug}}</p>
-                                                    </td>
-                                                </tr>
-                                                
-                                                <tr>
-                                                    <td style="font-weight: bold;">Type</td>
-                                                    <td>                                                    
-                                                        <p>{{p.post_type}}</p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="font-weight: bold;">Category</td>
-                                                    <td>                                                    
-                                                        <p>{{p.post_category}}</p>
-                                                    </td>
-                                                </tr>
-                                                
-                                                <tr>
-                                                    <td style="font-weight: bold;">Created</td>
-                                                    <td>                                                    
-                                                        <p>{{ p.post_create.strftime('%Y-%m-%d')  }}</p>
-                                                    </td>
-                                                </tr>
+                            <div class="single-post-content">
 
-                                                <tr>
-                                                    <td style="font-weight: bold;">Updated</td>
-                                                    <td>                                                    
-                                                        <p>{{ p.post_update.strftime('%Y-%m-%d')  }}</p>
-                                                    </td>
-                                                </tr>
+                                <div class="featured-image">
 
-                                                <tr>
-                                                    <td style="font-weight: bold;">Intro</td>
-                                                    <td>                                                    
-                                                        <p>{{ p.post_intro }}</p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="font-weight: bold;">Body</td>
-                                                    <td style="text-align: justify;">                                                    
-                                                        <p>{{ p.post_body|safe }}</p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="font-weight: bold;">Image</td>
-                                                    <td>
-                                                        {% if p.post_image != None %}
-                                                        <a href="{{ url_for('static', filename='images/' + p.post_image) }}" target="_blank"><img src="{{ url_for('static', filename='images/' + p.post_image) }}" style="width: 50%;" alt="Image"></a>
-                                                        {% else %}
-                                                        No Image
-                                                        {% endif %}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="font-weight: bold;">Admin</td>
-                                                    <td>                                                    
-                                                        <p>{{ p.post_admin }}</p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="font-weight: bold;">Publish</td>
-                                                    <td>                                                    
-                                                        <p>{{ p.post_publish }}</p>
-                                                    </td>
-                                                </tr>
-                                            {% endfor %}
-                                            </tbody>
-                                        </table>
+                                    <div class="featured-image-overlay"></div>
+
+                                    <div class="post-header">
+                                        
+                                        <div class="post-title">
+                                            <h1 class="mb-0">{{posts.post_title}}</h1>
+                                        </div>
+                                        
+                                        <div class="post-meta-info d-flex justify-content-between">
+    
+                                            <div class="media">
+                                                <img src="{{url_for('static', filename='images/' + users.user_photo) }}" alt="profile">
+                                                <div class="media-body">
+                                                    <h5>{{posts.post_admin}}</h5>
+                                                    <p>{{posts.post_create.strftime('%d %B, %Y')}}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="align-self-center">
+                                                <button class="btn btn-success btn-icon btn-share btn-rounded">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share-2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                                                </button>
+                                            </div>
+                                            
+                                        </div>
+
                                     </div>
-                                    <a href="{{url_for('index') }}" class="btn btn-danger">Back</a>
+                                    
                                 </div>
+
+                                <div class="post-content" style="text-align: justify;">
+
+                                    {{posts.post_body|safe}}
+                                    
+                                    <img src="{{url_for('static', filename='src/assets/img/lightbox-3.jpeg') }}" alt="image-1" class="full-width img-fluid mt-4 mb-5">
+
+                                    <h4>Novato extrema monimenta clivo ille</h4>
+
+                                    <p class="mb-5">Recessit mox patrem ille mea, tumulatus teneri hominis, favilla enim recentes deam cur nocte pro eburnea. Favilla iam suis horruerant Chiae quotiensque ingemuit locumque ducere postquam alebat. Iovi caeli esse superet contraria conscia transierant verae; ut vetuere, suo gerat lumina rugis velletque. Facta innecte de relicta Chrysenque morte, laedor dea aequaret dedit! Sustinui attulit proles potentior.</p>
+
+                                    
+                                    <h4>Aliquod corpora sororibus crimine ornata</h4>
+
+                                    <p class="mb-5">Est convicia et nubibus negate. In nisi inbellibus sui, cruribus vult hostes solum invitat. Vino faciam stratis; non modo in eurus igitur, ambit, mentitus periclo? Ullo dextra, extemplo commenta ultima, quid ire vos toto quia, in habili Gradivus ferarum certaminis attulerat.</p>
+                                    
+
+                                    <h4>Nemus dolet monstravit</h4>
+
+                                    <p class="mb-5">Est et hic volucres, rursus; simul, cauda tamen cacumine pars intendensque . Maius dignior caret coniuge, demugitaeque duce, exponimur anus inritata. Quoque sum casusve corpora, dat caecis doloris scelus domesticus laboris heu quod reliquit. Albenti infra sed Pergama vivere fusus de fecerat sublime prosunt illic. Consensu pavet insistit terras!</p>
+                                    
+                                    <hr class="my-5">
+
+                                    <div class="text-center mb-5">
+                                        <img src="{{url_for('static', filename='src/assets/img/slider-3.jpeg') }}" alt="image-1" class="img-fluid">
+                                    </div>
+
+                                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+
+
+                                </div>
+                                
                             </div>
+                                
                             
                         </div>
                         
                     </div>
-    
+
                 </div>
 
             </div>
-
+            
             <!--  BEGIN FOOTER  -->
             <div class="footer-wrapper">
                 <div class="footer-section f-section-1">
@@ -452,30 +415,21 @@
                 </div>
             </div>
             <!--  END FOOTER  -->
-            
+
         </div>
         <!--  END CONTENT AREA  -->
     </div>
     <!-- END MAIN CONTAINER -->
     
-    <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
-    <script src="{{ url_for('static', filename='src/plugins/src/global/vendors.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='src/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <script src="{{url_for('static', filename='') }}src/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{url_for('static', filename='') }}src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="{{url_for('static', filename='') }}src/plugins/src/mousetrap/mousetrap.min.js"></script>
+    <script src="{{url_for('static', filename='') }}layouts/vertical-light-menu/app.js"></script>
+    <script src="{{url_for('static', filename='') }}src/plugins/src/highlight/highlight.pack.js"></script>
+    <!-- END GLOBAL MANDATORY STYLES -->
 
-    <script src="{{ url_for('static', filename='src/assets/js/custom.js') }}"></script>
-    <!-- END GLOBAL MANDATORY SCRIPTS -->
-
-    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
-    <script src="{{ url_for('static', filename='src/plugins/src/table/datatable/datatables.js') }}"></script>
-    <script src="{{ url_for('static', filename='src/assets/js/datatable.js')}}"> </script>
-    <script src="https://code.iconify.design/iconify-icon/1.0.0-beta.3/iconify-icon.min.js"></script>
-    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
-    <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
-    <script src="{{url_for('static', filename='src/plugins/src/mousetrap/mousetrap.min.js') }}"></script>
-    <script src="{{url_for('static', filename='layouts/vertical-light-menu/app.js') }}"></script>
-    <script src="{{url_for('static', filename='src/plugins/src/highlight/highlight.pack.js') }}"></script>
-    <!-- END GLOBAL MANDATORY SCRIPTS -->
-    <script src="{{url_for('static', filename='src/assets/js/scrollspyNav.js') }}"></script>
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <!-- END PAGE LEVEL SCRIPTS -->
 </body>
 </html>
