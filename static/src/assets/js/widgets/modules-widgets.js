@@ -1432,7 +1432,7 @@ window.addEventListener("load", function(){
             }
           },
           title: {
-            text: 'Total Profit',
+            text: 'Test',
             align: 'left',
             margin: 0,
             offsetX: -10,
@@ -1450,13 +1450,13 @@ window.addEventListener("load", function(){
               lineCap: 'square'
           },
           series: [{
-              name: 'Expenses',
+              name: 'Tes',
               data: [16800, 16800, 15500, 14800, 15500, 17000, 21000, 16000, 15000, 17000, 14000, 17000]
           }, {
               name: 'Income',
               data: [16500, 17500, 16200, 17300, 16000, 21500, 16000, 17000, 16000, 19000, 18000, 19000]
           }],
-          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+          labels: ['31-09-2022', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
           xaxis: {
             axisBorder: {
               show: false

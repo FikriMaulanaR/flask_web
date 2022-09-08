@@ -5,43 +5,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
     <title>{{title}}</title>
-    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='src/assets/img/favicon.ico') }}"/>
-    <link href="{{url_for('static', filename='layouts/vertical-light-menu/css/light/loader.css') }}" rel="stylesheet" type="text/css" />
-    <script src="{{url_for('static', filename='layouts/vertical-light-menu/loader.js') }}"></script>
+   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='src/assets/img/favicon.ico') }}"/>
+    <!-- ENABLE LOADERS -->
+    <link href="{{ url_for('static', filename='layouts/vertical-light-menu/css/light/loader.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ url_for('static', filename='layouts/vertical-light-menu/css/dark/loader.css') }}" rel="stylesheet" type="text/css" />
+    <script src="{{ url_for('static', filename='layouts/vertical-light-menu/loader.js') }}"></script>
+    <!-- /ENABLE LOADERS -->
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
-    <link href="{{url_for('static', filename='src/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{url_for('static', filename='layouts/vertical-light-menu/css/light/plugins.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ url_for('static', filename='src/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ url_for('static', filename='layouts/vertical-light-menu/css/light/plugins.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ url_for('static', filename='layouts/vertical-light-menu/css/dark/plugins.css') }}" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
 
+    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+    <link href="../static/src/plugins/src/apex/apexcharts.css" rel="stylesheet" type="text/css">
+
+    <link href="../static/src/assets/css/light/components/list-group.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../static/src/assets/css/light/widgets/modules-widgets.css">  
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='src/assets/css/light/elements/alert.css') }}">
     <!--  BEGIN CUSTOM STYLE FILE  -->
-    <link href="{{url_for('static', filename='src/assets/css/light/elements/custom-pagination.css') }}" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='src/assets/css/light/apps/blog-post.css') }}"/>
-    {% if posts.post_image != None %}
-    <style type="text/css">
-    .featured-image {
-        background: lightblue url("{{ url_for('static', filename='images/' + posts.post_image)}}") no-repeat fixed center;
-        height: 650px;
-        background-position: center;
-        background-size: cover;
-        background-attachment: inherit;
-    }
-    </style>
-    {% else %}
-    <style type="text/css">
-    .featured-image {
-        background: lightblue url("{{ url_for('static', filename='images/logo-bmkg.png')}}") no-repeat fixed center;
-        height: 650px;
-        background-position: center;
-        background-size: cover;
-        background-attachment: inherit;
-    }
-    </style>
-    {% endif %}
+    <link href="{{url_for('static', filename='src/assets/css/light/scrollspyNav.css') }}" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
     <!--  END CUSTOM STYLE FILE  -->
-</head>
-<body class=" layout-boxed">
     
+    <style>
+        body .layout-px-spacing, .layout-px-spacing {
+            min-height: calc(100vh - 155px) !important;
+        }
+    </style>
+</head>
+{% block content %}
+<body class="layout-boxed alt-menu" layout="full-width" page="starter-pack">
+
     <!-- BEGIN LOADER -->
     <div id="load_screen"> <div class="loader"> <div class="loader-content">
         <div class="spinner-grow align-self-center"></div>
@@ -49,7 +45,7 @@
     <!--  END LOADER -->
 
     <!--  BEGIN NAVBAR  -->
-    <div class="header-container container-xxl">
+    <div class="header-container">
         <header class="header navbar navbar-expand-sm expand-header">
 
             <a href="javascript:void(0);" class="nav-link theme-toggle p-0">
@@ -120,7 +116,7 @@
                     <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="avatar-container">
                             <div class="avatar avatar-sm avatar-indicators avatar-online">
-                                <img alt="avatar" src="{{url_for('static', filename='src/assets/img/anonymous.png') }}" class="rounded-circle">
+                                <img alt="avatar" src="../static/static/src/assets/img/anonymous.png" class="rounded-circle">
                             </div>
                         </div>
                     </a>
@@ -128,7 +124,7 @@
                     <div class="dropdown-menu position-absolute" aria-labelledby="userProfileDropdown">
                         <div class="user-profile-section">
                             <div class="media mx-auto">
-                                <img src="{{url_for('static', filename='src/assets/img/anonymous.png') }}" class="img-fluid me-2" alt="avatar">
+                                <img src="../static/static/src/assets/img/anonymous.png" class="img-fluid me-2" alt="avatar">
                                 <div class="media-body">
                                     <h5>Anonymous</h5>
                                     <p>Unknown</p>
@@ -150,22 +146,21 @@
     <!--  END NAVBAR  -->
 
     <!--  BEGIN MAIN CONTAINER  -->
-    <div class="main-container " id="container">
+    <div class="main-container" id="container">
 
         <div class="overlay"></div>
-        <div class="cs-overlay"></div>
         <div class="search-overlay"></div>
 
         <!--  BEGIN SIDEBAR  -->
         <div class="sidebar-wrapper sidebar-theme">
-
+            
             <nav id="sidebar">
 
                 <div class="navbar-nav theme-brand flex-row  text-center">
                     <div class="nav-logo">
                         <div class="nav-item theme-logo">
                             <a href="{{ url_for('backend.index') }}">
-                                <img src="{{url_for('static', filename='src/assets/img/logo-bmkg.png') }}" class="navbar-logo" alt="logo">
+                                <img src="../static/static/src/assets/img/logo-bmkg.png" class="navbar-logo" alt="logo">
                             </a>
                         </div>
                         <div class="nav-item theme-text">
@@ -314,136 +309,111 @@
                             </div>
                         </a>
                     </li>
+                    <li class="menu active">
+                        <a href="{{ url_for('backend.backend_data') }}" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-airplay"><path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"></path><polygon points="12 15 17 21 7 21 12 15"></polygon></svg>
+                                <span>Data 1</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="menu">
+                        <a href="{{ url_for('backend.backend_data2') }}" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-airplay"><path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"></path><polygon points="12 15 17 21 7 21 12 15"></polygon></svg>
+                                <span>Data 2</span>
+                            </div>
+                        </a>
+                    </li>
                 </ul>
                 
             </nav>
 
         </div>
         <!--  END SIDEBAR  -->
-
+        
         <!--  BEGIN CONTENT AREA  -->
         <div id="content" class="main-content">
-
             <div class="layout-px-spacing">
 
-                <div class="middle-content container-xxl p-0">
-    
+                <div class="middle-content">
+
                     <!-- BREADCRUMB -->
-                    <div class="page-meta">
-                        <nav class="breadcrumb-style-one" aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">{{menu}}</a></li>
-                                <li class="breadcrumb-item"><a href="#">
-                                    {% if posts.post_category == 1 %}
-                                    Sejarah
-                                    {% elif posts.post_category == 2 %}
-                                    Visi & Misi
-                                    {% elif posts.post_category == 3 %}
-                                    Tugas & Fungsi
-                                    {% elif posts.post_category == 4 %}
-                                    Kontak
-                                    {% elif posts.post_category == 5 %}
-                                    Berita
-                                    {% elif posts.post_category == 6 %}
-                                    Artikel
-                                    {% elif posts.post_category == 7 %}
-                                    Buletin
-                                    {% elif posts.post_category == 8 %}
-                                    Infografis
-                                    {% elif posts.post_category == 9 %}
-                                    Videografis
-                                    {% else %}
-                                    Unknown Category
-                                    {% endif %}
-                                </a></li>
-                                <li class="breadcrumb-item active" aria-current="page">{{title}}</li>
-                            </ol>
-                        </nav>
-                    </div>
-                    <!-- /BREADCRUMB -->
+                        <div class="page-meta">
+                            <nav class="breadcrumb-style-one" aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">{{menu}}</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{title}}</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    <!-- /BREADCRUMB -->    
     
                     <div class="row layout-top-spacing">
-    
-                        <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
-
-
-                            <div class="single-post-content">
-
-                                <div class="featured-image">
-
-                                    <div class="featured-image-overlay"></div>
-
-                                    <div class="post-header">
-                                        
-                                        <div class="post-title">
-                                            <h1 class="mb-0">{{posts.post_title}}</h1>
-                                        </div>
-                                        
-                                        <div class="post-meta-info d-flex justify-content-between">
-    
-                                            <div class="media">
-                                                <img src="{{url_for('static', filename='images/' + users.user_photo) }}" alt="profile">
-                                                <div class="media-body">
-                                                    <h5>{{posts.post_admin}}</h5>
-                                                    <p>{{posts.post_create.strftime('%d %B, %Y')}}</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="align-self-center">
-                                                <button class="btn btn-success btn-icon btn-share btn-rounded">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share-2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
-                                                </button>
-                                            </div>
-                                            
-                                        </div>
-
+                        <div class="container mx-auto align-self-center">
+                            {% with messages = get_flashed_messages(with_categories=true) %}
+                                {% if messages %}
+                                    {% for category, message in messages %}
+                                    <div class="alert alert-light-{{ category }} alert-dismissible fade show" role="alert">
+                                        {{ message }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x close" data-bs-dismiss="alert"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
                                     </div>
-                                    
-                                </div>
-
-                                <div class="post-content" style="text-align: justify;">
-
-                                    {{posts.post_body|safe}}
-                                    
-                                    <!--<img src="{{url_for('static', filename='src/assets/img/lightbox-3.jpeg') }}" alt="image-1" class="full-width img-fluid mt-4 mb-5">
-
-                                    <h4>Novato extrema monimenta clivo ille</h4>
-
-                                    <p class="mb-5">Recessit mox patrem ille mea, tumulatus teneri hominis, favilla enim recentes deam cur nocte pro eburnea. Favilla iam suis horruerant Chiae quotiensque ingemuit locumque ducere postquam alebat. Iovi caeli esse superet contraria conscia transierant verae; ut vetuere, suo gerat lumina rugis velletque. Facta innecte de relicta Chrysenque morte, laedor dea aequaret dedit! Sustinui attulit proles potentior.</p>
-
-                                    
-                                    <h4>Aliquod corpora sororibus crimine ornata</h4>
-
-                                    <p class="mb-5">Est convicia et nubibus negate. In nisi inbellibus sui, cruribus vult hostes solum invitat. Vino faciam stratis; non modo in eurus igitur, ambit, mentitus periclo? Ullo dextra, extemplo commenta ultima, quid ire vos toto quia, in habili Gradivus ferarum certaminis attulerat.</p>
-                                    
-
-                                    <h4>Nemus dolet monstravit</h4>
-
-                                    <p class="mb-5">Est et hic volucres, rursus; simul, cauda tamen cacumine pars intendensque . Maius dignior caret coniuge, demugitaeque duce, exponimur anus inritata. Quoque sum casusve corpora, dat caecis doloris scelus domesticus laboris heu quod reliquit. Albenti infra sed Pergama vivere fusus de fecerat sublime prosunt illic. Consensu pavet insistit terras!</p>
-                                    
-                                    <hr class="my-5">
-
-                                    <div class="text-center mb-5">
-                                        <img src="{{url_for('static', filename='src/assets/img/slider-3.jpeg') }}" alt="image-1" class="img-fluid">
-                                    </div>
-
-                                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>-->
-
-
-                                </div>
-                                
-                            </div>
-                                
-                            
+                                    {% endfor %}
+                                {% endif %}
+                            {% endwith %}
                         </div>
-                        
+                        <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+                            <div class="widget widget-chart-one">
+                                <div class="widget-heading">
+                                    <h5 class="ml-5">Chart JS</h5>
+                                    <!--<div class="task-action">
+                                        <div class="dropdown">
+                                            <a class="dropdown-toggle" href="#" role="button" id="revenue" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                            </a>
+                                            <div class="dropdown-menu left" aria-labelledby="revenue" style="will-change: transform;">
+                                                <a class="dropdown-item" href="javascript:void(0);">Weekly</a>
+                                                <a class="dropdown-item" href="javascript:void(0);">Monthly</a>
+                                                <a class="dropdown-item" href="javascript:void(0);">Yearly</a>
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                </div>
+    
+                                <div class="widget-content">
+                                    <canvas id="lineChart" width="700" height="400"></canvas>
+                                    <script>
+                                        var ctx = document.getElementById("lineChart").getContext("2d");
+                                        var lineChart = new Chart(ctx, {
+                                            type: "line",
+                                            data: {
+                                                labels: {{ labels | safe }},
+                                                datasets: [
+                                                    {
+                                                        label: "Dummy Data Points",
+                                                        data: {{ values | safe }},
+                                                        fill: false,
+                                                        borderColor: "rgb(75, 192, 192)",
+                                                        lineTension: 0.4
+                                                    }
+                                                ]
+                                            },
+                                            options: {
+                                                responsive: false
+                                            }
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    
                     </div>
 
                 </div>
+                
 
             </div>
-            
-            <!--  BEGIN FOOTER  -->
+
             <div class="footer-wrapper">
                 <div class="footer-section f-section-1">
                     <p class="">Copyright © <span class="dynamic-year">2022</span> <a target="_blank" href="https://designreset.com/cork-admin/">DesignReset</a>, All rights reserved.</p>
@@ -452,22 +422,32 @@
                     <p class="">Coded with <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></p>
                 </div>
             </div>
-            <!--  END FOOTER  -->
-
+            
         </div>
         <!--  END CONTENT AREA  -->
+
     </div>
     <!-- END MAIN CONTAINER -->
-    
-    <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <script src="{{url_for('static', filename='') }}src/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="{{url_for('static', filename='') }}src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="{{url_for('static', filename='') }}src/plugins/src/mousetrap/mousetrap.min.js"></script>
-    <script src="{{url_for('static', filename='') }}layouts/vertical-light-menu/app.js"></script>
-    <script src="{{url_for('static', filename='') }}src/plugins/src/highlight/highlight.pack.js"></script>
-    <!-- END GLOBAL MANDATORY STYLES -->
-
-    <!-- BEGIN PAGE LEVEL SCRIPTS -->
-    <!-- END PAGE LEVEL SCRIPTS -->
 </body>
+{% endblock %}
+<!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
+<script src="{{ url_for('static', filename='src/plugins/src/global/vendors.min.js') }}"></script>
+<script src="{{ url_for('static', filename='src/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+
+<script src="{{ url_for('static', filename='src/assets/js/custom.js') }}"></script>
+<!-- END GLOBAL MANDATORY SCRIPTS -->
+
+<!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+<script src="{{ url_for('static', filename='src/plugins/src/table/datatable/datatables.js') }}"></script>
+<script src="{{ url_for('static', filename='src/assets/js/datatable.js')}}"> </script>
+<script src="https://code.iconify.design/iconify-icon/1.0.0-beta.3/iconify-icon.min.js"></script>
+<!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+ <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
+ <script src="{{url_for('static', filename='src/plugins/src/mousetrap/mousetrap.min.js') }}"></script>
+ <script src="{{url_for('static', filename='layouts/vertical-light-menu/app.js') }}"></script>
+ <script src="{{url_for('static', filename='src/plugins/src/highlight/highlight.pack.js') }}"></script>
+ <!-- END GLOBAL MANDATORY SCRIPTS -->
+ <script src="{{url_for('static', filename='src/assets/js/scrollspyNav.js') }}"></script>
+ <script src="{{url_for('static', filename='src/assets/js/delete_btn.js') }}"></script>
 </html>

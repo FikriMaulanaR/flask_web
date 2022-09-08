@@ -19,17 +19,66 @@
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
+    <link href="../static/src/plugins/src/apex/apexcharts.css" rel="stylesheet" type="text/css">
+
+    <link href="../static/src/assets/css/light/components/list-group.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="../static/src/assets/css/light/widgets/modules-widgets.css">  
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='src/assets/css/light/elements/alert.css') }}">
-    <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
-    <!-- BEGIN PAGE LEVEL STYLES -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='src/plugins/src/table/datatable/datatables.css') }}">
-    
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='src/plugins/css/light/table/datatable/dt-global_style.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='src/plugins/css/dark/table/datatable/dt-global_style.css') }}">
-    <!-- END PAGE LEVEL STYLES -->
     <!--  BEGIN CUSTOM STYLE FILE  -->
     <link href="{{url_for('static', filename='src/assets/css/light/scrollspyNav.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{url_for('static', filename='src/assets/css/dark/scrollspyNav.css') }}" rel="stylesheet" type="text/css" />
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <style type="text/css">
+    .highcharts-figure,
+    .highcharts-data-table table {
+        min-width: 360px;
+        max-width: 800px;
+        margin: 1em auto;
+    }
+
+    .highcharts-data-table table {
+        font-family: Verdana, sans-serif;
+        border-collapse: collapse;
+        border: 1px solid #ebebeb;
+        margin: 10px auto;
+        text-align: center;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .highcharts-data-table caption {
+        padding: 1em 0;
+        font-size: 1.2em;
+        color: #555;
+    }
+
+    .highcharts-data-table th {
+        font-weight: 600;
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table td,
+    .highcharts-data-table th,
+    .highcharts-data-table caption {
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table thead tr,
+    .highcharts-data-table tr:nth-child(even) {
+        background: #f8f8f8;
+    }
+
+    .highcharts-data-table tr:hover {
+        background: #f1f7ff;
+    }
+
+    </style>
     <!--  END CUSTOM STYLE FILE  -->
     
     <style>
@@ -119,7 +168,7 @@
                     <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="avatar-container">
                             <div class="avatar avatar-sm avatar-indicators avatar-online">
-                                <img alt="avatar" src="../static/src/assets/img/anonymous.png" class="rounded-circle">
+                                <img alt="avatar" src="../static/static/src/assets/img/anonymous.png" class="rounded-circle">
                             </div>
                         </div>
                     </a>
@@ -127,7 +176,7 @@
                     <div class="dropdown-menu position-absolute" aria-labelledby="userProfileDropdown">
                         <div class="user-profile-section">
                             <div class="media mx-auto">
-                                <img src="../static/src/assets/img/anonymous.png" class="img-fluid me-2" alt="avatar">
+                                <img src="../static/static/src/assets/img/anonymous.png" class="img-fluid me-2" alt="avatar">
                                 <div class="media-body">
                                     <h5>Anonymous</h5>
                                     <p>Unknown</p>
@@ -163,7 +212,7 @@
                     <div class="nav-logo">
                         <div class="nav-item theme-logo">
                             <a href="{{ url_for('backend.index') }}">
-                                <img src="../static/src/assets/img/logo-bmkg.png" class="navbar-logo" alt="logo">
+                                <img src="../static/static/src/assets/img/logo-bmkg.png" class="navbar-logo" alt="logo">
                             </a>
                         </div>
                         <div class="nav-item theme-text">
@@ -179,7 +228,7 @@
 
                 <ul class="list-unstyled menu-categories" id="accordionExample">
                     
-                    <li class="menu active">
+                    <li class="menu">
                         <a href="{{ url_for('backend.index') }}" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
@@ -313,14 +362,14 @@
                         </a>
                     </li>
                     <li class="menu">
-                        <a href="{{url_for('backend.backend_data') }}" aria-expanded="false" class="dropdown-toggle">
+                        <a href="{{ url_for('backend.backend_data') }}" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-airplay"><path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"></path><polygon points="12 15 17 21 7 21 12 15"></polygon></svg>
                                 <span>Data 1</span>
                             </div>
                         </a>
                     </li>
-                    <li class="menu">
+                    <li class="menu active">
                         <a href="{{ url_for('backend.backend_data2') }}" aria-expanded="false" class="dropdown-toggle">
                             <div class="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-airplay"><path d="M5 17H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-1"></path><polygon points="12 15 17 21 7 21 12 15"></polygon></svg>
@@ -365,52 +414,377 @@
                                 {% endif %}
                             {% endwith %}
                         </div>
-                        <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-                            <div class="widget-content widget-content-area br-8"><br>
-                                &nbsp;&nbsp;<a href="{{url_for('backend.backend_add_post') }}" class="btn btn-primary btn-lg"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-plus" viewBox="0 0 18 18">
-                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                                  </svg>Add New</a>
-                                <table id="zero-config" class="table dt-table-hover" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Title</th>
-                                            <!-- <th>Slug</th>-->
-                                            <th>Type</th>
-                                            <th>Category</th>
-                                            <th>Created</th>
-                                            <!--<th>Updated</th> 
-                                            <th>Intro</th>
-                                            <th>Body</th>
-                                            <th>Image</th>-->
-                                            <th>Admin</th>
-                                            <th>Publish Status</th>
-                                            <th class="no-content">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for p in posts %}
-                                        <tr>
-                                            <td>{{ p.post_id }}</td>
-                                            <td><a class="link" href="{{url_for('backend.backend_detail_post', slug=p.post_slug) }}">{{p.post_title }}</a></td>
-                                            <!--<td>{{ p.post_slug }}</td> -->
-                                            <td style="text-align: center;">{{ p.post_type }}</td>
-                                            <td>{{ p.category_title }}</td>
-                                            <td>{{ p.post_create.strftime('%Y-%m-%d')  }}</td>
-                                            <!--<td>{{ p.post_update }}</td>
-                                            <td>{{ p.post_intro }}</td>
-                                            <td>{{ p.post_body }}</td>
-                                            <td>{{ p.post_image }}</td>-->
-                                            <td>{{ p.post_admin }}</td>
-                                            <td style="text-align: center;">{{ p.post_publish }}</td>
-                                            <td>
-                                                <a href="{{ url_for('backend.backend_edit_post', id=p.post_id) }}" class="bs-tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" data-original-title="Edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 p-1 br-8 mb-1"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a>
-                                                <a href="{{ url_for('backend.backend_delete_post', id=p.post_id) }}" class="bs-tooltip btn-delete" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" data-original-title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash p-1 br-8 mb-1"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a>
-                                            </td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
+                        <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+                            <div class="widget widget-chart-one">
+                                <div class="widget-heading">
+                                    <h5 class="ml-5">LineCharts</h5>
+                                    <!--<div class="task-action">
+                                        <div class="dropdown">
+                                            <a class="dropdown-toggle" href="#" role="button" id="revenue" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                                            </a>
+                                            <div class="dropdown-menu left" aria-labelledby="revenue" style="will-change: transform;">
+                                                <a class="dropdown-item" href="javascript:void(0);">Weekly</a>
+                                                <a class="dropdown-item" href="javascript:void(0);">Monthly</a>
+                                                <a class="dropdown-item" href="javascript:void(0);">Yearly</a>
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                </div>
+    
+                                <div class="widget-content">
+                                    <figure class="highcharts-figure">
+                                        <div id="highcharts-ex"></div>
+                                        <p class="highcharts-description">
+                                            HighChart Example with Data Labels
+                                        </p>
+                                    </figure>
+                                    <script>
+                                        // Data retrieved https://en.wikipedia.org/wiki/List_of_cities_by_average_temperature
+                                    Highcharts.chart('highcharts-ex', {
+                                        chart: {
+                                            type: 'line'
+                                        },
+                                        title: {
+                                            text: 'Monthly Average Temperature in Indonesia'
+                                        },
+                                        subtitle: {
+                                            text: 'Source: ' +
+                                                '<a href="https://en.wikipedia.org/wiki/List_of_cities_by_average_temperature" ' +
+                                                'target="_blank">Wikipedia.com</a>'
+                                        },
+                                        xAxis: {
+                                            categories: {{ labels | safe }}
+                                        },
+                                        yAxis: {
+                                            title: {
+                                                text: 'Temperature (°C)'
+                                            }
+                                        },
+                                        plotOptions: {
+                                            line: {
+                                                dataLabels: {
+                                                    enabled: true
+                                                },
+                                                enableMouseTracking: false
+                                            }
+                                        },
+                                        series: [{
+                                            name: 'Jakarta',
+                                            data: {{jkt|safe}}
+                                        }, {
+                                            name: 'Denpasar',
+                                            data: {{dps}}
+                                        }, {
+                                            name: 'Pontianak',
+                                            data: {{ptk}}
+                                        }, {
+                                            name: 'Surabaya',
+                                            data: {{sby}}
+                                        }, {
+                                            name: 'Medan',
+                                            data: {{mdn}}
+                                        }, {
+                                            name: 'Jayapura',
+                                            data: {{jyp}}
+                                        }]
+                                    });
+
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-9 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+                            <div class="widget widget-chart-three">
+                                <div class="widget-heading">
+                                    <div class="">
+                                        <h5 class="">Wind Rose</h5>
+                                    </div>
+                                </div>
+
+                                <div class="widget-content">
+                                    <figure class="highcharts-figure">
+                                        <div id="highcharts-wind"></div>
+                                        <p class="highcharts-description">
+                                            The wind rose chart
+                                        </p>
+                                    </figure>
+                                    
+                                    <div class="table-bordered">
+                                        <!-- Source: http://or.water.usgs.gov/cgi-bin/grapher/graph_windrose.pl -->
+                                        <table class="table table-responsive" id="freq" border="0" cellspacing="0" cellpadding="0">
+                                            <tr nowrap bgcolor="#CCCCFF">
+                                                <th colspan="9" class="hdr">Table of Frequencies (percent)</th>
+                                            </tr>
+                                            <tr nowrap bgcolor="#CCCCFF">
+                                                <th class="freq">Direction</th>
+                                                <th class="freq">&lt; 0.5 m/s</th>
+                                                <th class="freq">0.5-2 m/s</th>
+                                                <th class="freq">2-4 m/s</th>
+                                                <th class="freq">4-6 m/s</th>
+                                                <th class="freq">6-8 m/s</th>
+                                                <th class="freq">8-10 m/s</th>
+                                                <th class="freq">&gt; 10 m/s</th>
+                                                <th class="freq">Total</th>
+                                            </tr>
+                                            <tr nowrap>
+                                                <td class="dir">N</td>
+                                                <td class="data">1.81</td>
+                                                <td class="data">1.78</td>
+                                                <td class="data">0.16</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">3.75</td>
+                                            </tr>        
+                                            <tr nowrap bgcolor="#DDDDDD">
+                                                <td class="dir">NNE</td>
+                                                <td class="data">0.62</td>
+                                                <td class="data">1.09</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">1.71</td>
+                                            </tr>
+                                            <tr nowrap>
+                                                <td class="dir">NE</td>
+                                                <td class="data">0.82</td>
+                                                <td class="data">0.82</td>
+                                                <td class="data">0.07</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">1.71</td>
+                                            </tr>
+                                            <tr nowrap bgcolor="#DDDDDD">
+                                                <td class="dir">ENE</td>
+                                                <td class="data">0.59</td>
+                                                <td class="data">1.22</td>
+                                                <td class="data">0.07</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">1.88</td>
+                                            </tr>
+                                            <tr nowrap>
+                                                <td class="dir">E</td>
+                                                <td class="data">0.62</td>
+                                                <td class="data">2.20</td>
+                                                <td class="data">0.49</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">3.32</td>
+                                            </tr>
+                                            <tr nowrap bgcolor="#DDDDDD">
+                                                <td class="dir">ESE</td>
+                                                <td class="data">1.22</td>
+                                                <td class="data">2.01</td>
+                                                <td class="data">1.55</td>
+                                                <td class="data">0.30</td>
+                                                <td class="data">0.13</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">5.20</td>
+                                            </tr>
+                                            <tr nowrap>
+                                                <td class="dir">SE</td>
+                                                <td class="data">1.61</td>
+                                                <td class="data">3.06</td>
+                                                <td class="data">2.37</td>
+                                                <td class="data">2.14</td>
+                                                <td class="data">1.74</td>
+                                                <td class="data">0.39</td>
+                                                <td class="data">0.13</td>
+                                                <td class="data">11.45</td>
+                                            </tr>
+                                            <tr nowrap bgcolor="#DDDDDD">
+                                                <td class="dir">SSE</td>
+                                                <td class="data">2.04</td>
+                                                <td class="data">3.42</td>
+                                                <td class="data">1.97</td>
+                                                <td class="data">0.86</td>
+                                                <td class="data">0.53</td>
+                                                <td class="data">0.49</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">9.31</td>
+                                            </tr>
+                                            <tr nowrap>
+                                                <td class="dir">S</td>
+                                                <td class="data">2.66</td>
+                                                <td class="data">4.74</td>
+                                                <td class="data">0.43</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">7.83</td>
+                                            </tr>
+                                            <tr nowrap bgcolor="#DDDDDD">
+                                                <td class="dir">SSW</td>
+                                                <td class="data">2.96</td>
+                                                <td class="data">4.14</td>
+                                                <td class="data">0.26</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">7.37</td>
+                                            </tr>
+                                            <tr nowrap>
+                                                <td class="dir">SW</td>
+                                                <td class="data">2.53</td>
+                                                <td class="data">4.01</td>
+                                                <td class="data">1.22</td>
+                                                <td class="data">0.49</td>
+                                                <td class="data">0.13</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">8.39</td>
+                                            </tr>
+                                            <tr nowrap bgcolor="#DDDDDD">
+                                                <td class="dir">WSW</td>
+                                                <td class="data">1.97</td>
+                                                <td class="data">2.66</td>
+                                                <td class="data">1.97</td>
+                                                <td class="data">0.79</td>
+                                                <td class="data">0.30</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">7.70</td>
+                                            </tr>
+                                            <tr nowrap>
+                                                <td class="dir">W</td>
+                                                <td class="data">1.64</td>
+                                                <td class="data">1.71</td>
+                                                <td class="data">0.92</td>
+                                                <td class="data">1.45</td>
+                                                <td class="data">0.26</td>
+                                                <td class="data">0.10</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">6.09</td>
+                                            </tr>
+                                            <tr nowrap bgcolor="#DDDDDD">
+                                                <td class="dir">WNW</td>
+                                                <td class="data">1.32</td>
+                                                <td class="data">2.40</td>
+                                                <td class="data">0.99</td>
+                                                <td class="data">1.61</td>
+                                                <td class="data">0.33</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">0.00</td>
+                                                <td class="data">6.64</td>
+                                            </tr>
+                                            <tr nowrap>
+                                                <td class="dir">NW</td>
+                                                <td class="data">1.58</td>
+                                                <td class="data">4.28</td>
+                                                <td class="data">1.28</td>
+                                                <td class="data">0.76</td>
+                                                <td class="data">0.66</td>
+                                                <td class="data">0.69</td>
+                                                <td class="data">0.03</td>
+                                                <td class="data">9.28</td>
+                                            </tr>        
+                                            <tr nowrap bgcolor="#DDDDDD">
+                                                <td class="dir">NNW</td>
+                                                <td class="data">1.51</td>
+                                                <td class="data">5.00</td>
+                                                <td class="data">1.32</td>
+                                                <td class="data">0.13</td>
+                                                <td class="data">0.23</td>
+                                                <td class="data">0.13</td>
+                                                <td class="data">0.07</td>
+                                                <td class="data">8.39</td>
+                                            </tr>
+                                            <tr nowrap>
+                                                <td class="totals">Total</td>
+                                                <td class="totals">25.53</td>
+                                                <td class="totals">44.54</td>
+                                                <td class="totals">15.07</td>
+                                                <td class="totals">8.52</td>
+                                                <td class="totals">4.31</td>
+                                                <td class="totals">1.81</td>
+                                                <td class="totals">0.23</td>
+                                                <td class="totals">&nbsp;</td>
+                                            </tr>
+                                        </table>
+                                        <script>
+                                            Highcharts.chart('highcharts-wind', {
+                                                data: {
+                                                    table: 'freq',
+                                                    startRow: 1,
+                                                    endRow: 17,
+                                                    endColumn: 7
+                                                },
+
+                                                chart: {
+                                                    polar: true,
+                                                    type: 'column'
+                                                },
+
+                                                title: {
+                                                    text: 'Wind rose for South Shore Met Station',
+                                                    align: 'left'
+                                                },
+
+                                                subtitle: {
+                                                    text: 'Source: or.water.usgs.gov',
+                                                    align: 'left'
+                                                },
+
+                                                pane: {
+                                                    size: '85%'
+                                                },
+
+                                                legend: {
+                                                    align: 'right',
+                                                    verticalAlign: 'top',
+                                                    y: 100,
+                                                    layout: 'vertical'
+                                                },
+
+                                                xAxis: {
+                                                    tickmarkPlacement: 'on'
+                                                },
+
+                                                yAxis: {
+                                                    min: 0,
+                                                    endOnTick: false,
+                                                    showLastLabel: true,
+                                                    title: {
+                                                        text: 'Frequency (%)'
+                                                    },
+                                                    labels: {
+                                                        formatter: function () {
+                                                            return this.value + '%';
+                                                        }
+                                                    },
+                                                    reversedStacks: false
+                                                },
+
+                                                tooltip: {
+                                                    valueSuffix: '%'
+                                                },
+
+                                                plotOptions: {
+                                                    series: {
+                                                        stacking: 'normal',
+                                                        shadow: false,
+                                                        groupPadding: 0,
+                                                        pointPlacement: 'on'
+                                                    }
+                                                }
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     
@@ -457,4 +831,6 @@
  <!-- END GLOBAL MANDATORY SCRIPTS -->
  <script src="{{url_for('static', filename='src/assets/js/scrollspyNav.js') }}"></script>
  <script src="{{url_for('static', filename='src/assets/js/delete_btn.js') }}"></script>
+ <script src="{{ url_for('static', filename='src/plugins/src/table/datatable/datatables.js') }}"></script>
+<script src="{{ url_for('static', filename='src/assets/js/datatable.js')}}"> </script>
 </html>

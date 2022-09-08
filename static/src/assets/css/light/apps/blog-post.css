@@ -16,10 +16,6 @@
 
 .featured-image {
   position: relative;
-  height: 650px;
-  background-position: center;
-  background-size: cover;
-  background-attachment: inherit;
   border-radius: 20px;
   overflow: hidden;
   border-bottom-left-radius: 0;
