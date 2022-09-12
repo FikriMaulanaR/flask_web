@@ -436,10 +436,46 @@
                                     <figure class="highcharts-figure">
                                         <div id="highcharts-ex"></div>
                                         <p class="highcharts-description">
-                                            HighChart Example with Data Labels
+                                            HighChart Example with Data Labels<br>
+                                            <pre id="MyText"></pre>
+                                            <pre id="MyTet"></pre>
                                         </p>
                                     </figure>
                                     <script>
+                                        var data = {
+                                            "data_cuaca" : [{
+                                                    "datetime": [
+                                                        "Jan","Feb","Mar","Apr","Mei","Jun","Jul","Aug","Sep","Oct","Nov","Dec"
+                                                    ],
+                                                    "jkt": [
+                                                        26.1,26.4,27.0,27.2,26.7,26.4,26.7,27.0,27.2,27.0,26.4,26.7
+                                                    ],
+                                                    "ptk": [
+                                                        26.9,27.9,28.2,28.1,28.0,27.8,27.5,27.8,28.3,27.7,27.3,27.2
+                                                    ],
+                                                    "dps": [
+                                                        24.1,24.2,24.0,24.8,24.1,23.5,22.5,22.9,23.0,23.7,23.5,23.5
+                                                    ],
+                                                    "sby": [
+                                                        26.8,26.8,27.0,27.3,27.3,26.7,26.2,26.5,27.2,28.2,28.3,27.3
+                                                    ],  
+                                                    "mdn": [
+                                                        25.6,26.1,26.7,27.2,27.3,27.1,27.0,26.9,26.6,26.1,26.0,25.8
+                                                    ],
+                                                    "jyp": [
+                                                        27.1,26.9,27.1,27.3,27.2,26.9,26.4,26.6,26.9,27.2,27.3,27.0
+                                                    ]
+                                                    
+                                                    }
+                                                ]
+                                            }
+                                            var labels = data.data_cuaca.map(v => v.datetime)
+                                            var jkt = data.data_cuaca.map(j => j.jkt)
+                                            var ptk = data.data_cuaca.map(p => p.ptk)
+                                            var dps = data.data_cuaca.map(d => d.dps)
+                                            var sby = data.data_cuaca.map(s => s.sby)
+                                            var mdn = data.data_cuaca.map(m => m.mdn)
+                                            var jyp = data.data_cuaca.map(y => y.jyp)
                                         // Data retrieved https://en.wikipedia.org/wiki/List_of_cities_by_average_temperature
                                     Highcharts.chart('highcharts-ex', {
                                         chart: {
@@ -454,7 +490,7 @@
                                                 'target="_blank">Wikipedia.com</a>'
                                         },
                                         xAxis: {
-                                            categories: {{ labels | safe }}
+                                            categories: labels[0]
                                         },
                                         yAxis: {
                                             title: {
@@ -471,22 +507,22 @@
                                         },
                                         series: [{
                                             name: 'Jakarta',
-                                            data: {{jkt|safe}}
+                                            data: jkt[0]
                                         }, {
                                             name: 'Denpasar',
-                                            data: {{dps}}
+                                            data: dps[0]
                                         }, {
                                             name: 'Pontianak',
-                                            data: {{ptk}}
+                                            data: ptk[0]
                                         }, {
                                             name: 'Surabaya',
-                                            data: {{sby}}
+                                            data: sby[0]
                                         }, {
                                             name: 'Medan',
-                                            data: {{mdn}}
+                                            data: mdn[0]
                                         }, {
                                             name: 'Jayapura',
-                                            data: {{jyp}}
+                                            data: jyp[0]
                                         }]
                                     });
 
@@ -815,7 +851,6 @@
 <script src="{{ url_for('static', filename='src/plugins/src/global/vendors.min.js') }}"></script>
 <script src="{{ url_for('static', filename='src/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ url_for('static', filename='src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
-
 <script src="{{ url_for('static', filename='src/assets/js/custom.js') }}"></script>
 <!-- END GLOBAL MANDATORY SCRIPTS -->
 
@@ -833,4 +868,37 @@
  <script src="{{url_for('static', filename='src/assets/js/delete_btn.js') }}"></script>
  <script src="{{ url_for('static', filename='src/plugins/src/table/datatable/datatables.js') }}"></script>
 <script src="{{ url_for('static', filename='src/assets/js/datatable.js')}}"> </script>
+<script type="text/javascript">
+    var data = {
+    "data_cuaca" : [{
+            "datetime": [
+                "Jan","Feb","Mar","Apr","Mei","Jun","Jul","Aug","Sep","Oct","Nov","Dec"
+            ],
+            "jkt": [
+                26.1,26.4,27.0,27.2,26.7,26.4,26.7,27.0,27.2,27.0,26.4,26.7
+            ],
+            "ptk": [
+                26.9,27.9,28.2,28.1,28.0,27.8,27.5,27.8,28.3,27.7,27.3,27.2
+            ],
+            "dps": [
+                24.1,24.2,24.0,24.8,24.1,23.5,22.5,22.9,23.0,23.7,23.5,23.5
+            ],
+            "sby": [
+                26.8,26.8,27.0,27.3,27.3,26.7,26.2,26.5,27.2,28.2,28.3,27.3
+            ],  
+            "mdn": [
+                25.6,26.1,26.7,27.2,27.3,27.1,27.0,26.9,26.6,26.1,26.0,25.8
+            ],
+            "jyp": [
+                27.1,26.9,27.1,27.3,27.2,26.9,26.4,26.6,26.9,27.2,27.3,27.0
+            ]
+            
+            }
+        ]
+    }
+    var jkt = data.data_cuaca.map(v => v.jkt)
+    var ptk = data.data_cuaca.map(v => v.ptk)
+    document.getElementById('MyTet').innerHTML = JSON.stringify(jkt[0]);
+    document.getElementById('MyText').innerHTML = JSON.stringify(data, null, 4);
+</script>
 </html>

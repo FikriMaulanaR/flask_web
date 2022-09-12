@@ -333,9 +333,8 @@
                         <nav class="breadcrumb-style-one" aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#">{{menu}}</a></li>
-                                <li class="breadcrumb-item"><a href="#">
                                     {% if posts.post_category == 1 %}
-                                    Sejarah
+                                    <li class="breadcrumb-item"><a href="{{url_for('backend.backend_sejarah')}}">Sejarah</a>
                                     {% elif posts.post_category == 2 %}
                                     Visi & Misi
                                     {% elif posts.post_category == 3 %}

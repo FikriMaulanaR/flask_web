@@ -247,113 +247,22 @@ def backend_data2():
         cur.execute("SELECT * FROM tbl_user WHERE user_name = %s;", (user_name,))
         users = cur.fetchall()
         print(users[0])
-        data_datetime = [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "Mei",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec"
-        ]
-        data_jkt = [
-            26.1,
-            26.4,
-            27.0,
-            27.2,
-            26.7,
-            26.4,
-            26.7,
-            27.0,
-            27.2,
-            27.0,
-            26.4,
-            26.7,
-        ]
-        data_ptk = [  
-            26.9,
-            27.9,	
-            28.2,	
-            28.1,	
-            28.0,	
-            27.8,	
-            27.5,	
-            27.8,	
-            28.3,	
-            27.7,	
-            27.3,	
-            27.2
-        ]
-        data_dps = [
-            24.1,	
-            24.2,	
-            24.0,	
-            24.8,	
-            24.1,	
-            23.5,	
-            22.5,	
-            22.9,	
-            23.0,	
-            23.7,	
-            23.5,	
-            23.5
-        ]
-        data_sby = [            
-            26.8,	
-            26.8,	
-            27.0,	
-            27.3,	
-            27.3,	
-            26.7,	
-            26.2,	
-            26.5,	
-            27.2,	
-            28.2,	
-            28.3,	
-            27.3
-        ]
-        data_mdn = [
-            25.6,	
-            26.1,	
-            26.7,	
-            27.2,	
-            27.3,	
-            27.1,	
-            27.0,	
-            26.9,	
-            26.6,	
-            26.1,	
-            26.0,	
-            25.8
-        ]
-        data_jyp = [            
-            27.1,	
-            26.9,	
-            27.1,	
-            27.3,	
-            27.2,	
-            26.9,	
-            26.4,	
-            26.6,	
-            26.9,	
-            27.2,	
-            27.3,	
-            27.0
-        ]
-    labels = [row for row in data_datetime]
-    values_jkt = [row for row in data_jkt]
-    values_ptk = [row for row in data_ptk]
-    values_dps = [row for row in data_dps]
-    values_sby = [row for row in data_sby]
-    values_mdn = [row for row in data_mdn]
-    values_jyp = [row for row in data_jyp]
+        data_datetime = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+        data_jkt = [26.1,26.4,27.0,27.2,26.7,26.4,26.7,27.0,27.2,27.0,26.4,26.7,]
+        data_ptk = [26.9,27.9,28.2,28.1,28.0,27.8,27.5,27.8,28.3,27.7,27.3,27.2]
+        data_dps = [24.1,24.2,24.0,24.8,24.1,23.5,22.5,22.9,23.0,23.7,23.5,23.5]
+        data_sby = [26.8,26.8,27.0,27.3,27.3,26.7,26.2,26.5,27.2,28.2,28.3,27.3]
+        data_mdn = [25.6,26.1,26.7,27.2,27.3,27.1,27.0,26.9,26.6,26.1,26.0,25.8]
+        data_jyp = [27.1,26.9,27.1,27.3,27.2,26.9,26.4,26.6,26.9,27.2,27.3,27.0]
+        labels = [row for row in data_datetime]
+        values_jkt = [row for row in data_jkt]
+        values_ptk = [row for row in data_ptk]
+        values_dps = [row for row in data_dps]
+        values_sby = [row for row in data_sby]
+        values_mdn = [row for row in data_mdn]
+        values_jyp = [row for row in data_jyp]
 
-    return render_template("chartjs2.html", labels=labels, sby=values_sby, mdn=values_mdn, jyp=values_jyp, users=users[0], menu='Data 2', jkt=values_jkt, ptk=values_ptk, dps=values_dps, title='HighChartJS')
+        return render_template("chartjs2.html", labels=labels, sby=values_sby, mdn=values_mdn, jyp=values_jyp, users=users[0], menu='Data 2', jkt=values_jkt, ptk=values_ptk, dps=values_dps, title='HighChartJS')
 
 @bp_backend.route('/profil/<id>')
 def backend_profil_user(id):
