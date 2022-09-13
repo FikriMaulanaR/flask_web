@@ -8,7 +8,7 @@ import psycopg2.extras
 import re
 from models import conn, cur, index_posts
 from datetime import datetime, timedelta, date
-from flask import Blueprint, render_template, request, flash, redirect, url_for, session
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify, json
 from flask_bootstrap import Bootstrap
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 from flask_wtf import FlaskForm
@@ -214,6 +214,20 @@ def backend_videografis():
         print(users[0])
         return render_template('videografis.html', posts=posts, users=users[0], menu='Menu', title='Videografis')
     return redirect(url_for('backend.login'))
+
+@bp_backend.route('/jsonfile')
+def jsons():
+    with open('./data.json', 'r') as myfile:
+        data = myfile.read()
+    jsonfile = json.dumps(data)
+    return data
+
+@bp_backend.route('/jsonfile2')
+def jsons2():
+    with open('./data_copy.json', 'r') as myfile:
+        data = myfile.read()
+    jsonfile = json.dumps(data)
+    return data
 
 @bp_backend.route('/data-1')
 def backend_data():

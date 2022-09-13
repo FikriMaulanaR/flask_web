@@ -66,7 +66,7 @@
                     <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="avatar-container">
                             <div class="avatar avatar-sm avatar-indicators avatar-online">
-                                {% if users.user_photo != None %}
+                                {% if user.user_photo != None %}
                                 <img alt="avatar" src="{{ url_for('static', filename='images/' + user.user_photo) }}" class="rounded-circle">
                                 {% else %}
                                 <img alt="avatar" src="{{ url_for('static', filename='images/anonymous.png') }}" class="rounded-circle">
@@ -78,7 +78,7 @@
                     <div class="dropdown-menu position-absolute" aria-labelledby="userProfileDropdown">
                         <div class="user-profile-section">
                             <div class="media mx-auto">
-                                {% if users.user_photo != None %}
+                                {% if user.user_photo != None %}
                                 <img src="{{ url_for('static', filename='images/' + user.user_photo) }}" class="img-fluid me-2" alt="avatar">
                                 {% else %}
                                 <img src="{{ url_for('static', filename='images/anonymous.png') }}" class="img-fluid me-2" alt="avatar">

@@ -116,7 +116,7 @@
                     <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="avatar-container">
                             <div class="avatar avatar-sm avatar-indicators avatar-online">
-                                <img alt="avatar" src="../static/static/src/assets/img/anonymous.png" class="rounded-circle">
+                                <img alt="avatar" src="../static/src/assets/img/anonymous.png" class="rounded-circle">
                             </div>
                         </div>
                     </a>
@@ -124,7 +124,7 @@
                     <div class="dropdown-menu position-absolute" aria-labelledby="userProfileDropdown">
                         <div class="user-profile-section">
                             <div class="media mx-auto">
-                                <img src="../static/static/src/assets/img/anonymous.png" class="img-fluid me-2" alt="avatar">
+                                <img src="../static/src/assets/img/anonymous.png" class="img-fluid me-2" alt="avatar">
                                 <div class="media-body">
                                     <h5>Anonymous</h5>
                                     <p>Unknown</p>
@@ -160,7 +160,7 @@
                     <div class="nav-logo">
                         <div class="nav-item theme-logo">
                             <a href="{{ url_for('backend.index') }}">
-                                <img src="../static/static/src/assets/img/logo-bmkg.png" class="navbar-logo" alt="logo">
+                                <img src="../static/src/assets/img/logo-bmkg.png" class="navbar-logo" alt="logo">
                             </a>
                         </div>
                         <div class="nav-item theme-text">
@@ -382,26 +382,96 @@
     
                                 <div class="widget-content">
                                     <canvas id="lineChart" width="700" height="400"></canvas>
-                                    <script>
-                                        var ctx = document.getElementById("lineChart").getContext("2d");
-                                        var lineChart = new Chart(ctx, {
-                                            type: "line",
-                                            data: {
-                                                labels: {{ labels | safe }},
-                                                datasets: [
-                                                    {
-                                                        label: "Dummy Data Points",
-                                                        data: {{ values | safe }},
-                                                        fill: false,
-                                                        borderColor: "rgb(75, 192, 192)",
-                                                        lineTension: 0.4
+                                    <script type="text/javascript">
+                                        var xmlhttp = new XMLHttpRequest();
+                                        var url = "{{url_for('backend.jsons')}}";
+                                        xmlhttp.open("GET",url, true);
+                                        xmlhttp.send();
+                                        xmlhttp.onreadystatechange = function(){
+                                            if(this.readyState == 4 && this.status == 200){
+                                                var data = JSON.parse(this.responseText);
+                                                console.log(data)
+                                                var months = data.data_cuaca.map(function(elem) {
+                                                    return elem.datetime;
+                                                });
+                                                //console.log(months)
+                                                var jkt = data.data_cuaca.map(function(elem) {
+                                                    return elem.jkt;
+                                                    console.log(jkt)
+                                                });
+                                                var ptk = data.data_cuaca.map(function(elem) {
+                                                    return elem.ptk;
+                                                });
+                                                var dps = data.data_cuaca.map(function(elem) {
+                                                    return elem.dps;
+                                                });
+                                                var sby = data.data_cuaca.map(function(elem) {
+                                                    return elem.sby;
+                                                });
+                                                var mdn = data.data_cuaca.map(function(elem) {
+                                                    return elem.mdn;
+                                                });
+                                                var jyp = data.data_cuaca.map(function(elem) {
+                                                    return elem.jyp;
+                                                });
+
+                                                var ctx = document.getElementById("lineChart").getContext("2d");
+                                                var lineChart = new Chart(ctx, {
+                                                    type: "line",
+                                                    data: {
+                                                        labels: months[0],
+                                                        datasets: [
+                                                            {
+                                                                label: "Jakarta",
+                                                                data: jkt[0],
+                                                                fill: false,
+                                                                borderColor: "red",
+                                                                lineTension: 0.1,
+                                                            },
+                                                            {
+                                                                label: "Pontianak",
+                                                                data: ptk[0],
+                                                                fill: false,
+                                                                borderColor: "green",
+                                                                lineTension: 0.4
+                                                            },
+                                                            {
+                                                                label: "Denpasar",
+                                                                data: dps[0],
+                                                                fill: false,
+                                                                borderColor: "black",
+                                                                lineTension: 0.4
+                                                            },
+                                                            {
+                                                                label: "Surabaya",
+                                                                data: sby[0],
+                                                                fill: false,
+                                                                borderColor: "blue",
+                                                                lineTension: 0.4
+                                                            },
+                                                            {
+                                                                label: "Medan",
+                                                                data: mdn[0],
+                                                                fill: false,
+                                                                borderColor: "yellow",
+                                                                lineTension: 0.4
+                                                            },
+                                                            {
+                                                                label: "Jayapura",
+                                                                data: jyp[0],
+                                                                fill: false,
+                                                                borderColor: "rgb(75, 192, 192)",
+                                                                lineTension: 0.4
+                                                            },
+                                                        ]
+                                                    },
+                                                    options: {  
+                                                        responsive: false
                                                     }
-                                                ]
-                                            },
-                                            options: {
-                                                responsive: false
+                                                });
                                             }
-                                        });
+                                        }
+                                        
                                     </script>
                                 </div>
                             </div>
