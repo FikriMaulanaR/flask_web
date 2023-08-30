@@ -3,7 +3,7 @@
     {"name": "Pontianak"}, {"data": [26.9, 27.9, 28.2, 28.1, 28.0, 27.8, 27.5, 27.8, 28.3, 27.7, 27.3, 27.2]}
 ]
 
-<div class="">
+/* <div class="">
           <a href="#" class="btn btn-secondary btn-detail-content" id="id_btn_infrasound"><img src="{{ url_for('static', filename='images/infrasound_512.svg') }}" style="width:40px; height: 40px;"/>Infrasound</a>
           <a href="#" class="btn btn-secondary btn-detail-content" id="id_btn_ceilometer"><img src="{{ url_for('static', filename='images/ceilometer_512.svg') }}" style="width:40px; height: 40px;"/>Ceilometer</a>
           <a href="#" class="btn btn-secondary btn-detail-content" id="id_btn_seismometer"><img src="{{ url_for('static', filename='images/seismometer_512.svg') }}" style="width:40px; height: 40px;"/>Seismometer</a>
@@ -30,3 +30,4 @@ $(document).ready(function() {
           return data_content[var_id];
       }
     });
+*/
