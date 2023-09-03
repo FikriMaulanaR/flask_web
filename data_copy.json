@@ -19,15 +19,29 @@
 $(document).ready(function() {
       var boxTarget = $('.box-target');
   
-      $('#id_infrasound, #id_ceilometer, #id_seismometer, #id_weather, #id_airquality, #id_tsunami').click(function() {
-          var btnId = this.id;
-          var content = get_content(btnId);
-          boxTarget.text(content);
+      // Reusable function for loading content
+      function loadContent(url) {
+          $.ajax({
+              type: "GET",
+              url: url, // URL for airquality.html
+              success: function(data) {
+                  var highchartCode = $(data).find('#container').html();
+                  boxTarget.html(highchartCode);
+              },
+              error: function(jqXHR, textStatus, errorThrown) {
+              console.error("Error: " + errorThrown);
+              }
+          });
+      }
+  
+      // Attach click event handler to the "Air Quality" button
+      $('#id_btn_airquality').click(function() {
+          // Specify the URL of the airquality.html file
+          var airqualityUrl = "{{ url_for('vash.page_air_quality') }}"; // Replace with the actual URL
+  
+          // Call the loadContent function with the airqualityUrl
+          loadContent(airqualityUrl);
       });
   
-      function get_content(var_id) {
-          const data_content = [{"id_infrasound": "This is for Infrasound"}, {"id_ceilometer": "This is for Ceilometer"}, {"id_seismometer": "This is for Seismometer"}, {"id_weather": "This is for Weather"}, {"id_airquality": "This is for Air Quality"}, {"id_tsunami": "This is for Tsunami Radar"}];
-          return data_content[var_id];
-      }
+      // Add similar click event handlers for other buttons as needed
     });
-*/
