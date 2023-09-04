@@ -18,30 +18,116 @@
 
 $(document).ready(function() {
       var boxTarget = $('.box-target');
-  
-      // Reusable function for loading content
-      function loadContent(url) {
-          $.ajax({
-              type: "GET",
-              url: url, // URL for airquality.html
-              success: function(data) {
-                  var highchartCode = $(data).find('#container').html();
-                  boxTarget.html(highchartCode);
-              },
-              error: function(jqXHR, textStatus, errorThrown) {
-              console.error("Error: " + errorThrown);
-              }
-          });
+      
+      function newChart(options) {
+        // Empty the boxTarget to remove any existing content
+        boxTarget.empty();
+
+        // Create a new container div
+        var newContainer = $('<div id="highcharts-content"></div>');
+
+        // Append the new container to the box-target div
+        boxTarget.append(newContainer);
+
+        // Initialize Highcharts inside the new container with the provided options
+        Highcharts.chart(newContainer[0], options);
+      }
+
+
+      // Function to load the advisory text
+      function loadAdvisoryText() {
+        // Define the advisory text HTML
+        var advisoryText = `
+            <p style="font-size:13px;">
+                FVAU03 ADRM 260240<br />
+                VA ADVISORY<br />
+                DTG: 20230826/0240Z<br />
+                VAAC: DARWIN<br />
+                VOLCANO: SEMERU 263300<br />
+                PSN: S0806 E11255<br />
+                AREA: INDONESIA<br />
+                ADVISORY NR: 2023/600<br />
+                INFO SOURCE: HIMAWARI-9<br />
+                AVIATION COLOUR CODE: ORANGE<br />
+                ERUPTION DETAILS: INTERMITTENT DISCRETE VA TO FL150 LAST OBS<br />
+                MOV W AT 26/0110Z<br />
+                EST VA DTG: 26/0210Z<br />
+                EST VA CLD: SFC/FL150 S0805 E11257 - S0808 E11257 - S0815<br />
+                E11226 - S0756 E11227 MOV W 10KT<br />
+                FCST VA CLD +6 HR: 26/0810Z SFC/FL150 S0804 E11257 - S0807<br />
+                E11257 - S0817 E11250 - S0819 E11224 - S0758 E11224<br />
+                FCST VA CLD +12 HR: 26/1410Z SFC/FL150 S0802 E11303 - S0816<br />
+                E11302 - S0824 E11243 - S0803 E11234 - S0756 E11255<br />
+                FCST VA CLD +18 HR: 26/2010Z SFC/FL150 S0757 E11248 - S0757<br />
+                E11302 - S0809 E11315 - S0821 E11304 - S0812 E11240<br />
+                RMK: WEAK INTERMITTENT VA EMISSIONS LAST OBS ON SAT IMG AT<br />
+                26/0110Z, MOV W. VA HEIGHT AND FCST BASED ON SAT IMAGERY AND
+                MODEL GUIDANCE.
+                NXT ADVISORY: NO LATER THAN 20230826/0840Z=
+            </p>
+        `;
+
+        // Empty the boxTarget to remove any existing content
+        boxTarget.empty();
+
+        // Append the advisory text to the box-target div
+        boxTarget.html(advisoryText);
+      }
+
+
+      function loadWeatherTable() {
+
+        boxTarget.empty();
+
+        var weatherUrl = "{{ url_for('vash.page_weather') }}";
+
+        // Use jQuery's AJAX function to fetch the content from another HTML page
+        $.ajax({
+            url: weatherUrl,
+            method: 'GET',
+            dataType: 'html',
+            success: function(data) {
+                // Insert the fetched content into the box-target div
+                boxTarget.html(data);
+            },
+            error: function() {
+                console.error('Error loading weather table content.');
+            }
+        });
       }
   
-      // Attach click event handler to the "Air Quality" button
       $('#id_btn_airquality').click(function() {
-          // Specify the URL of the airquality.html file
-          var airqualityUrl = "{{ url_for('vash.page_air_quality') }}"; // Replace with the actual URL
-  
-          // Call the loadContent function with the airqualityUrl
-          loadContent(airqualityUrl);
+        newChart(highchartsOptions);
+      });
+
+      $('#id_btn_infrasound').click(function() {
+        newChart(highchartsSecond);
+      });
+
+      $('#id_btn_seismometer').click(function() {
+        newChart(highchartsSecond);
+      });
+
+      $('#id_btn_tsunami').click(function() {
+        newChart(highchartsSecond);
+      });
+
+      $('#id_btn_advisory').click(function() {
+        loadAdvisoryText();
+      });
+
+      $('#id_btn_ceilometer').click(function() {
+        boxTarget.empty();
+
+        // Create an image element
+        var image = $('<img src="{{ url_for("static", filename="images/ceilometer_example.png") }}" alt="Ceilometer Image">');
+
+        boxTarget.append(image);
       });
   
+      $('#id_btn_weather').click(function() {
+        loadWeatherTable();
+      });
+      
       // Add similar click event handlers for other buttons as needed
     });
